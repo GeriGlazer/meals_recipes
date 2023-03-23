@@ -63,9 +63,8 @@ class MealItem extends StatelessWidget {
           ],
           borderRadius: BorderRadius.circular(15),
         ),
-        child: sameContainerChild;
-      onPressed: ()  {},
-    ) : Card(
+        child: sameContainerChild,
+    ),) : Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15)
       ),
