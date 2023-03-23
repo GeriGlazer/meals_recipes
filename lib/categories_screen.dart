@@ -1,29 +1,50 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_complete_guide/models/category.dart';
 
 import './category_item.dart';
 import './categories_mock.dart';
 
 class CategoriesScreen extends StatelessWidget {
 
+  List<Widget> gridViewChildren(){
+    return CATEGORIES_MOCK.map((catData) => CategoryItem(
+        catData.title,
+        catData.color),
+    ).toList();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final pageBody = SafeArea(
+      minimum: const EdgeInsets.all(10),
+        child: GridView(
+          children: gridViewChildren(),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            childAspectRatio:  3 / 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+          ),
+        ),
+    );
+    return Platform.isIOS?
+    CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: const Text("Meals!!"),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        ),
+      ),
+      child: pageBody,
+    )
+    : Scaffold(
       appBar: AppBar(
         title: const Text('Meals!!'),
       ),
-      body: GridView(
-        children:CATEGORIES_MOCK.map((catData) => CategoryItem(
-          catData.title,
-          catData.color,
-        ),
-        ).toList(),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio:  3 / 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
-        ),
-      ),
+      body: pageBody,
     );
   }
 }
