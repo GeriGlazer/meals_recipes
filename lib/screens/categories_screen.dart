@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_complete_guide/models/category.dart';
 
-import './category_item.dart';
-import './categories_mock.dart';
+import '../widgets/category_item.dart';
+import '../categories_mock.dart';
 
 class CategoriesScreen extends StatelessWidget {
 
   List<Widget> gridViewChildren(){
     return CATEGORIES_MOCK.map((catData) => CategoryItem(
         catData.title,
-        catData.color),
+        catData.color,
+        catData.id),
     ).toList();
   }
 

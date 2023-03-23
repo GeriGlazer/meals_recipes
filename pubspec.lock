@@ -49,6 +49,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  cupertino_progress_bar:
+    dependency: transitive
+    description:
+      name: cupertino_progress_bar
+      sha256: "4962a7c6db9b94d1c19462ad6036fdf20db43defa4114c908a3c4cbef1b3a2e0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  cupertino_stepper:
+    dependency: transitive
+    description:
+      name: cupertino_stepper
+      sha256: "124690b8b23db7b43fc6d547688e42a9f3d73c8f46d0b210568e98a04b5645b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
+  enough_platform_widgets:
+    dependency: "direct main"
+    description:
+      name: enough_platform_widgets
+      sha256: "7d9ae2de02decbff6d565348d5c4255a91879ce3ba77ebeaaf39a354f86bf52a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.2"
   fake_async:
     dependency: transitive
     description:
@@ -62,6 +86,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_platform_widgets:
+    dependency: transitive
+    description:
+      name: flutter_platform_widgets
+      sha256: b787f001d659ce1fb601332e908efdf44dbedab832387b33162abeed60c1eca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -169,4 +201,5 @@ packages:
     source: hosted
     version: "2.1.4"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.19.0-0 <3.0.0"
+  flutter: ">=3.7.0"

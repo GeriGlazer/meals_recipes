@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './categories_screen.dart';
+import 'screens/categories_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,6 +27,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: CategoriesScreen(),
+      //this lines is for when several pages needs to be manage
+      //routes : {
+      //routes
+      // '/category-meals' : (ctx) => MealsScreenByCategory()},
     );
   }
 }
