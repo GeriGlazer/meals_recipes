@@ -7,20 +7,19 @@ import '../widgets/meal_item.dart';
 import '../categories_mock.dart';
 
 class MealsScreenByCategory extends StatelessWidget {
-
-  final String categoryId;
-  final String categoryTitle;
-
-
-  const MealsScreenByCategory(this.categoryId, this.categoryTitle);
+  static const routeName = '/category-meals';
+  // final String categoryId;
+  // final String categoryTitle;
+  //
+  // const MealsScreenByCategory(this.categoryId, this.categoryTitle);
 
   @override
   Widget build(BuildContext context) {
     //this lines is for passing arguments from an other screen via routing in
     // pushNamed method instead of gridViewChildren() method
-    // final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
-    // final categoryTitle = routeArgs['title'];
-    //final categoryId = routeArgs['id'];
+    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final categoryTitle = routeArgs['title'];
+    final categoryId = routeArgs['id'];
     final categoryMeals = MEALS_MOCK.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
@@ -32,10 +31,10 @@ class MealsScreenByCategory extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
         ),
       ),
-      //todo: not working
       child: CupertinoFormSection.insetGrouped(
         children: [
           ...List.generate(categoryMeals.length, (index) => MealItem(
+              id: categoryMeals[index].id,
               title: categoryMeals[index].title,
               imageURL: categoryMeals[index].imageUrl,
               duration: categoryMeals[index].duration,

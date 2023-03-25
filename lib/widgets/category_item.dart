@@ -15,14 +15,30 @@ class CategoryItem extends StatelessWidget {
 
   PageRoute pageRoute(bool isIOS)  {
    return isIOS != null?
-       CupertinoPageRoute(
-          builder: (_) {
-            return MealsScreenByCategory(id, title);
-          },)
+       // CupertinoPageRoute(
+       //    settings: RouteSettings(
+       //      name: MealsScreenByCategory.routeName,
+       //      arguments: {'id': id, 'title': title},
+       //    ),
+       // )
+   CupertinoPageRoute(
+     builder: (_) {
+       return MealsScreenByCategory();
+     },
+     settings: RouteSettings(
+       name: MealsScreenByCategory.routeName,
+       arguments: {'id': id, 'title': title},
+     )
+   )
        : MaterialPageRoute(
-          builder: (_) {
-            return MealsScreenByCategory(id, title);
-          });
+       builder: (_) {
+         return MealsScreenByCategory();
+       },
+       settings: RouteSettings(
+           name: MealsScreenByCategory.routeName,
+           arguments: {'id': id, 'title': title}
+       )
+   );
   }
 
   void selectCategory (BuildContext ctx){

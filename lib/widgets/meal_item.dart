@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:enough_platform_widgets/platform.dart';
 import 'package:flutter/cupertino.dart';
+import '../screens/single_meal_screen.dart';
 import '../../models/meal.dart';
+import 'adaptive_card.dart';
 
 class MealItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageURL;
   final int duration;
@@ -13,26 +16,78 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
 
   MealItem({
+    @required this.id,
     @required this.title,
     @required this.imageURL,
     @required this.duration,
     @required this.complexity,
-    @required this.affordability}
+    @required this.affordability,
+  }
       );
 
-  void selectMeal(){}
+  String get compexityText{
+    switch(complexity){
+      case Complexity.Simple:
+        return 'Simple';
+      case Complexity.Challenging:
+        return 'Challenging';
+      case Complexity.Hard:
+        return 'Hard';
+      default:
+        return 'Unknown';
+    }
+  }
 
-  Widget adaptiveCard (BuildContext ctx){
-    final isIOS = Platform.isIOS;
+  String get affordabilityText{
+    switch(affordability){
+      case Affordability.Affordable:
+        return 'Cheap';
+      case Affordability.Pricey:
+        return 'Affordable';
+      case Affordability.Gourmet:
+        return 'Expensive';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  PageRoute pageRoute(bool isIOS)  {
+    return isIOS ?
+    CupertinoPageRoute(
+      builder: (_) {
+        return SingleMealScreen();
+      },
+        settings: RouteSettings(
+            name: SingleMealScreen.routeName,
+            arguments: {'title' : title},
+        )
+    )
+        : MaterialPageRoute(
+        builder: (_) {
+          return SingleMealScreen();
+        },
+        settings: RouteSettings(
+            name: SingleMealScreen.routeName,
+            arguments: {'title' : title},
+        )
+    );
+  }
+  void selectMeal(BuildContext ctx){
+    bool isIOS = Platform.isIOS;
+    Navigator.of(ctx).push(pageRoute(isIOS));
+    //Navigator.of(ctx).pushNamed(SingleMealScreen.routeName, arguments: id);
+    //this lines is for use when managing several screens in main-> myApp class ->MaterialApp -> routes:
+    //Navigator.of(ctx).pushNamed(
+    // '/category-meals',
+    //arguments: id,
+    // );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final sameContainerChild =  Column(
       children: <Widget>[
         Stack(
-          // decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //       image: AssetImage("assets/mindful.jpg"),
-          //       fit: BoxFit.cover,
-          //     )
-          // ),
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.only(
@@ -51,7 +106,7 @@ class MealItem extends StatelessWidget {
               right: 20,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black54,
+                    color: Colors.black54,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(15),
                         topLeft: Radius.circular(15))),
@@ -71,37 +126,38 @@ class MealItem extends StatelessWidget {
             ),
           ],
         ),
-        Row()
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Row(children: <Widget>[
+                //todo: build an adaptive method for IOS
+                //maybe create a widget that returns Icon(bool platform (Icons/CupertinoIcons).switch case based in string as IconData
+                Icon(Icons.access_time),
+                SizedBox(width: 6,),
+                Text('$duration min'),
+              ],),
+              Row(children: <Widget>[
+                //todo: build an adaptive method for IOS
+                Icon(Icons.work,),
+                SizedBox(width: 6,),
+                Text(compexityText),
+              ],),
+              Row(children: <Widget>[
+                //todo: build an adaptive method for IOS
+                Icon(Icons.attach_money,),
+                SizedBox(width: 6,),
+                Text(affordabilityText),
+              ],),
+            ],
+          ),
+        )
       ],
     );
-    return isIOS?
-    CupertinoButton(
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[BoxShadow(
-              color: Colors.black45,
-              blurRadius: 15,
-              offset: Offset(0, 1),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: sameContainerChild,
-    ),) : Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-      ),
-      elevation: 4,
-      margin: EdgeInsets.all(10),
-      child: sameContainerChild,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return PlatformInkWell(
-      onTap: selectMeal,
-      child: adaptiveCard(context),
+      onTap: () => selectMeal(context),
+      child: AdaptiveCard(containerChild: sameContainerChild,),
     );
   }
 }
