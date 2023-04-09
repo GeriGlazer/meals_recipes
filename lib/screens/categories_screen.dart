@@ -34,17 +34,9 @@ class CategoriesScreen extends StatelessWidget {
     );
     return Platform.isIOS?
     CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: const Text("Meals!!"),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        ),
-      ),
       child: pageBody,
     )
     : Scaffold(
-      appBar: AppBar(
-        title: const Text('Meals!!'),
-      ),
       body: pageBody,
     );
   }
