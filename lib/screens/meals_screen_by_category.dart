@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import '../models/meal.dart';
 import '../widgets/meal_item.dart';
 import '../categories_mock.dart';
+import '../models/filters.dart';
 
 class MealsScreenByCategory extends StatelessWidget {
   static const routeName = '/category-meals';
   // final String categoryId;
   // final String categoryTitle;
-  //
   // const MealsScreenByCategory(this.categoryId, this.categoryTitle);
 
   @override
@@ -20,8 +20,28 @@ class MealsScreenByCategory extends StatelessWidget {
     final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
     final categoryTitle = routeArgs['title'];
     final categoryId = routeArgs['id'];
-    final categoryMeals = MEALS_MOCK.where((meal) {
-      return meal.categories.contains(categoryId);
+    bool setFlag(bool filter, bool meal){
+      if (filter){
+        if (meal)return true;
+        else return false;
+      }
+      else return true;
+    }
+
+    var categoryMeals = MEALS_MOCK.where((meal) {
+      var glutenFree = false;
+      var vegetarian = false;
+      var vegan = false;
+      var lactoseFree = false;
+
+      glutenFree = setFlag(Filters.gluten, meal.isGlutenFree);
+      vegetarian = setFlag(Filters.vegetarian, meal.isVegetarian);
+      vegan = setFlag(Filters.vegan, meal.isVegan);
+      lactoseFree = setFlag(Filters.lactose, meal.isLactoseFree);
+
+      if (glutenFree == true && vegetarian == true && vegan == true && lactoseFree == true)
+        return meal.categories.contains(categoryId);
+      else return false;
     }).toList();
 
     return Platform.isIOS?

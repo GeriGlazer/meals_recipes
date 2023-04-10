@@ -87,7 +87,8 @@ class SingleMealScreen extends StatelessWidget {
                   ),
                   itemCount: selectedMeal.steps.length,))
           ],),
-      ),);
+      ),
+    );
 
     return Platform.isIOS?
     CupertinoPageScaffold(
@@ -103,6 +104,14 @@ class SingleMealScreen extends StatelessWidget {
         title: Text('$mealTitle'),
       ),
       body: pageBody,
+      floatingActionButton: FilledButton(
+        child: Icon(
+          Icons.star_border_outlined,
+          color: Colors.yellow,
+        ),
+        onPressed: (){},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );;
   }
 }

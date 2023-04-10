@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/widgets/adaptive_drawer.dart';
 
 import './favorites_screen.dart';
 import './categories_screen.dart';
@@ -38,6 +39,7 @@ bool isIOS = Platform.isIOS;
   Widget build(BuildContext context) {
     return isIOS?
     CupertinoTabScaffold(
+      //todo: implement a title and a drawer in the appBar of cupertino: https://stackoverflow.com/questions/65026158/how-can-i-add-a-drawer-widget-to-a-cupertinotabscaffold
       tabBar: CupertinoTabBar(
         items: tabItems(),
         onTap: _bottomNavigationOnTap,
@@ -57,6 +59,7 @@ bool isIOS = Platform.isIOS;
       appBar: (AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
       )),
+      drawer: AdaptiveDrawer(),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         items: tabItems(),

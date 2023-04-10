@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/bottomTabsScreen.dart';
-import 'screens/categories_screen.dart';
+import 'screens/filters_screen.dart';
 import 'screens/meals_screen_by_category.dart';
 import 'screens/single_meal_screen.dart';
 
@@ -31,11 +31,12 @@ class MyApp extends StatelessWidget {
       ),
       // home: CategoriesScreen(),
       //this lines is for when several pages needs to be manage
-        initialRoute: '/', //default
+      initialRoute: '/', //default
       routes : {
         '/': (ctx) => BottomTabsScreen(),
-      MealsScreenByCategory.routeName: (ctx) => MealsScreenByCategory(),
-      SingleMealScreen.routeName : (ctx) => SingleMealScreen(),
+        MealsScreenByCategory.routeName: (ctx) => MealsScreenByCategory(),
+        SingleMealScreen.routeName : (ctx) => SingleMealScreen(),
+        FiltersScreen.routeName : (ctx) => FiltersScreen(),
       }
     );
   }
