@@ -284,7 +284,7 @@ const MEALS_MOCK = const [
       'Heat a lightly oiled griddle or frying pan over medium high heat.',
       'Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.'
     ],
-    isGlutenFree: true,
+    isGlutenFree: false,
     isVegan: false,
     isVegetarian: true,
     isLactoseFree: false,

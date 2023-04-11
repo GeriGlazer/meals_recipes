@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'models/filters.dart';
 import 'screens/bottomTabsScreen.dart';
 import 'screens/filters_screen.dart';
 import 'screens/meals_screen_by_category.dart';
@@ -7,6 +9,7 @@ import 'screens/single_meal_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
