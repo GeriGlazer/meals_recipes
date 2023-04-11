@@ -11,8 +11,6 @@ class SingleMealScreen extends StatelessWidget {
   static const routeName = '/single-meal';
    //String id;
 
-  SingleMealScreen();
-
   Widget buildSectionTitle(BuildContext ctx, String text){
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
