@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'models/filters.dart';
+import 'models/meal.dart';
 import 'screens/bottomTabsScreen.dart';
 import 'screens/filters_screen.dart';
 import 'screens/meals_screen_by_category.dart';
@@ -9,7 +10,7 @@ import 'screens/single_meal_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
+  List<Meal> _favoriteMeals = [];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       //this lines is for when several pages needs to be manage
       initialRoute: '/', //default
       routes : {
-        '/': (ctx) => BottomTabsScreen(),
+        '/': (ctx) => BottomTabsScreen(_favoriteMeals),
         MealsScreenByCategory.routeName: (ctx) => MealsScreenByCategory(),
         SingleMealScreen.routeName : (ctx) => SingleMealScreen(),
         FiltersScreen.routeName : (ctx) => FiltersScreen(),

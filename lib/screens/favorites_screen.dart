@@ -4,7 +4,23 @@ import '../models/meal.dart';
 import '../widgets/meal_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
-   List<Meal> _favoriteMeals;
+   final List<Meal> _favoriteMeals;
+
+   FavoritesScreen(this._favoriteMeals);
+   /*void _toggleFavorites(String mealId){
+     final existingIndex = favoriteMeals.indexWhere((meal) => meal.id == mealId);
+     if(existingIndex >=0){
+       setState(() {
+         favoriteMeals.removeAt(existingIndex);
+       });
+     } else {
+       setState(() {
+         favoriteMeals.add(
+           MEALS_MOCK.firstWhere((meal) => meal.id == mealId),
+         );
+       });
+     }
+   }*/
 
   @override
   Widget build(BuildContext context) {

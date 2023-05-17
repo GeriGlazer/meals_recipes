@@ -43,6 +43,16 @@ class MealsScreenByCategory extends StatelessWidget {
         return meal.categories.contains(categoryId);
       else return false;
     }).toList();
+    
+    Widget mealsInCategory (Widget child){ 
+      if( categoryMeals.isEmpty){ 
+        return Center(child:
+            Container(child:
+              const Text("Uh oh... nothing in here!!",)
+            ),
+        );
+      }else return child;
+    }
 
     return Platform.isIOS?
     CupertinoPageScaffold(
@@ -51,7 +61,7 @@ class MealsScreenByCategory extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
         ),
       ),
-      child: CupertinoFormSection.insetGrouped(
+      child: mealsInCategory(CupertinoFormSection.insetGrouped(
         children: [
           ...List.generate(categoryMeals.length, (index) => MealItem(
               id: categoryMeals[index].id,
@@ -59,15 +69,16 @@ class MealsScreenByCategory extends StatelessWidget {
               imageURL: categoryMeals[index].imageUrl,
               duration: categoryMeals[index].duration,
               affordability: categoryMeals[index].affordability,
-              complexity: categoryMeals[index].complexity))
-        ]
-      ),
+              complexity: categoryMeals[index].complexity)
+          ),
+        ],
+      )),
     )
         : Scaffold(
       appBar: AppBar(
         title: Text(categoryTitle),
       ),
-      body: ListView.builder(
+      body: mealsInCategory(ListView.builder(
         itemBuilder: (ctx, index){
           return MealItem(
             title: categoryMeals[index].title,
@@ -77,7 +88,7 @@ class MealsScreenByCategory extends StatelessWidget {
             complexity: categoryMeals[index].complexity,);
         },
         itemCount: categoryMeals.length,
-      ),
+      ),)
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/categories_mock.dart';
 import 'package:flutter_complete_guide/widgets/adaptive_drawer.dart';
 
 import '../models/meal.dart';
@@ -9,14 +10,16 @@ import './favorites_screen.dart';
 import './categories_screen.dart';
 
 class BottomTabsScreen extends StatefulWidget {
-//todo: add here toggleFavoriteMeals instead of main.dart
+  List<Meal> favoriteMeals = [];
+  BottomTabsScreen(this.favoriteMeals);
   @override
   State<BottomTabsScreen> createState() => _BottomTabsScreenState();
 }
 
 class _BottomTabsScreenState extends State<BottomTabsScreen> {
-bool isIOS = Platform.isIOS;
-
+  List<Map<String, Object>> _pages;
+  int _selectedPageIndex=0;
+  bool isIOS = Platform.isIOS;
   List<BottomNavigationBarItem> tabItems(){
     Icon categories = isIOS? Icon(CupertinoIcons.circle_grid_3x3_fill) : Icon(Icons.category);
     Icon favorites = isIOS? Icon(CupertinoIcons.star_circle) : Icon(Icons.star);
@@ -25,15 +28,12 @@ bool isIOS = Platform.isIOS;
       BottomNavigationBarItem(icon: favorites, label: 'Favorites'),
     ];
   }
-  List<Map<String, Object>> _pages;
-  int _selectedPageIndex=0;
-
 
 @override
   void initState() {
      _pages = [
          {'page' : CategoriesScreen(), 'title' : 'Meals'},
-         {'page' : FavoritesScreen(), 'title': 'Your Favorites'},
+         {'page' : FavoritesScreen(widget.favoriteMeals), 'title': 'Your Favorites'},
        ];
     super.initState();
   }

@@ -96,8 +96,7 @@ class SingleMealScreen extends StatelessWidget {
         ),
       ),
       child: pageBody,
-    )
-        : Scaffold(
+    ) : Scaffold(
       appBar: AppBar(
         title: Text('$mealTitle'),
       ),
