@@ -5,15 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_complete_guide/models/category.dart';
 
 import '../widgets/category_item.dart';
-import '../categories_mock.dart';
+import '../data/categories_mock.dart';
 
 class CategoriesScreen extends StatelessWidget {
+  const CategoriesScreen ({super.key});
 
   List<Widget> gridViewChildren(){
     return CATEGORIES_MOCK.map((catData) => CategoryItem(
-        catData.title,
-        catData.color,
-        catData.id),
+        category: catData),
     ).toList();
   }
 
@@ -24,8 +23,8 @@ class CategoriesScreen extends StatelessWidget {
       minimum: const EdgeInsets.all(10),
         child: GridView(
           children: gridViewChildren(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
             childAspectRatio:  3 / 2,
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,

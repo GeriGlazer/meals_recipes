@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../widgets/adaptive_card.dart';
 
-import '../categories_mock.dart';
+import '../data/categories_mock.dart';
 
 class SingleMealScreen extends StatelessWidget {
   //When using a namedRuote use this variable

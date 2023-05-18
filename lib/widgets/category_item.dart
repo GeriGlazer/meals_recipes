@@ -2,16 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../models/category.dart';
 import 'package:enough_platform_widgets/platform.dart';
 import '../screens/meals_screen_by_category.dart';
 
 class CategoryItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final Color backgroundColor;
 
-
-  CategoryItem(this.title, this.backgroundColor, this.id);
+  final Category category;
+  CategoryItem(
+      {super.key,
+        required this.category,
+       }
+      );
 
   PageRoute pageRoute(bool isIOS)  {
    return isIOS != null?
@@ -27,7 +29,7 @@ class CategoryItem extends StatelessWidget {
      },
      settings: RouteSettings(
        name: MealsScreenByCategory.routeName,
-       arguments: {'id': id, 'title': title},
+       arguments: {'id': category.id, 'title': category.title},
      )
    )
        : MaterialPageRoute(
@@ -36,7 +38,7 @@ class CategoryItem extends StatelessWidget {
        },
        settings: RouteSettings(
            name: MealsScreenByCategory.routeName,
-           arguments: {'id': id, 'title': title}
+           arguments: {'id': category.id, 'title': category.title}
        )
    );
   }
@@ -61,7 +63,7 @@ class CategoryItem extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           child: Text(
-              title,
+              category.title,
             overflow: TextOverflow.visible,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,),
@@ -69,7 +71,10 @@ class CategoryItem extends StatelessWidget {
         //color: backgroundColor,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [backgroundColor.withOpacity(0.7), backgroundColor],
+              colors: [
+                category.color.withOpacity(0.55),
+                category.color.withOpacity(0.9)
+              ],
          begin: Alignment.topLeft,
          end: Alignment.bottomRight
         ),

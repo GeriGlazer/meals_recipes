@@ -8,25 +8,16 @@ import '../../models/meal.dart';
 import 'adaptive_card.dart';
 
 class MealItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageURL;
-  final int duration;
-  final Complexity complexity;
-  final Affordability affordability;
+  final Meal meal;
 
   MealItem({
-    @required this.id,
-    @required this.title,
-    @required this.imageURL,
-    @required this.duration,
-    @required this.complexity,
-    @required this.affordability,
+    super.key,
+    required this.meal,
   }
       );
 
-  String get compexityText{
-    switch(complexity){
+  String get complexityText{
+    switch(meal.complexity){
       case Complexity.Simple:
         return 'Simple';
       case Complexity.Challenging:
@@ -39,7 +30,7 @@ class MealItem extends StatelessWidget {
   }
 
   String get affordabilityText{
-    switch(affordability){
+    switch(meal.affordability){
       case Affordability.Affordable:
         return 'Cheap';
       case Affordability.Pricey:
@@ -59,7 +50,7 @@ class MealItem extends StatelessWidget {
       },
         settings: RouteSettings(
             name: SingleMealScreen.routeName,
-            arguments: {'title' : title},
+            arguments: {'title' : meal.title},
         )
     )
         : MaterialPageRoute(
@@ -68,7 +59,7 @@ class MealItem extends StatelessWidget {
         },
         settings: RouteSettings(
             name: SingleMealScreen.routeName,
-            arguments: {'title' : title},
+            arguments: {'title' : meal.title},
         )
     );
   }
@@ -95,7 +86,7 @@ class MealItem extends StatelessWidget {
                 topRight: Radius.circular(15),
               ),
               child: Image.network(
-                imageURL,
+                meal.imageUrl,
                 height: 250,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -113,14 +104,14 @@ class MealItem extends StatelessWidget {
                 width: 300,
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                 child: Text(
-                  title,
+                  meal.title,
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                   softWrap: true,
-                  overflow: TextOverflow.fade,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
@@ -136,13 +127,13 @@ class MealItem extends StatelessWidget {
                 //maybe create a widget that returns Icon(bool platform (Icons/CupertinoIcons).switch case based in string as IconData
                 Icon(Icons.access_time),
                 SizedBox(width: 6,),
-                Text('$duration min'),
+                Text('$meal.duration min'),
               ],),
               Row(children: <Widget>[
                 //todo: build an adaptive method for IOS
                 Icon(Icons.work,),
                 SizedBox(width: 6,),
-                Text(compexityText),
+                Text(complexityText),
               ],),
               Row(children: <Widget>[
                 //todo: build an adaptive method for IOS

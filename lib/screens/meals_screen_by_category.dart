@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/meal.dart';
 import '../widgets/meal_item.dart';
-import '../categories_mock.dart';
+import '../data/categories_mock.dart';
 import '../models/filters.dart';
 
 class MealsScreenByCategory extends StatelessWidget {
+  const MealsScreenByCategory({super.key});
+
   static const routeName = '/category-meals';
   // final String categoryId;
   // final String categoryTitle;
@@ -17,7 +19,7 @@ class MealsScreenByCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     //this lines is for passing arguments from an other screen via routing in
     // pushNamed method instead of gridViewChildren() method
-    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final routeArgs = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
     final categoryTitle = routeArgs['title'];
     final categoryId = routeArgs['id'];
     bool setFlag(bool filter, bool meal){
@@ -56,7 +58,7 @@ class MealsScreenByCategory extends StatelessWidget {
 
     return Platform.isIOS?
     CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text(categoryTitle),
+      navigationBar: CupertinoNavigationBar(middle: Text(categoryTitle!),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
         ),
@@ -64,28 +66,19 @@ class MealsScreenByCategory extends StatelessWidget {
       child: mealsInCategory(CupertinoFormSection.insetGrouped(
         children: [
           ...List.generate(categoryMeals.length, (index) => MealItem(
-              id: categoryMeals[index].id,
-              title: categoryMeals[index].title,
-              imageURL: categoryMeals[index].imageUrl,
-              duration: categoryMeals[index].duration,
-              affordability: categoryMeals[index].affordability,
-              complexity: categoryMeals[index].complexity)
+              meal: categoryMeals[index],)
           ),
         ],
       )),
     )
         : Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle),
+        title: Text(categoryTitle!),
       ),
       body: mealsInCategory(ListView.builder(
         itemBuilder: (ctx, index){
           return MealItem(
-            title: categoryMeals[index].title,
-            imageURL: categoryMeals[index].imageUrl,
-            duration: categoryMeals[index].duration,
-            affordability: categoryMeals[index].affordability,
-            complexity: categoryMeals[index].complexity,);
+              meal: categoryMeals[index]);
         },
         itemCount: categoryMeals.length,
       ),)

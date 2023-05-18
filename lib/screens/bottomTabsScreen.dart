@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/categories_mock.dart';
+import 'package:flutter_complete_guide/data/categories_mock.dart';
 import 'package:flutter_complete_guide/widgets/adaptive_drawer.dart';
 
 import '../models/meal.dart';

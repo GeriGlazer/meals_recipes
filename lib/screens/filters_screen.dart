@@ -31,7 +31,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
     return SwitchListTile(
         title: Text(text, style: Theme.of(context).textTheme.titleMedium,),
         value: currentValue,
-        onChanged: updateValue
+        onChanged: updateValue(),
         );
   }
 
