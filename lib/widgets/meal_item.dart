@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:enough_platform_widgets/platform.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_complete_guide/widgets/meal_item_traits.dart';
 import '../screens/single_meal_screen.dart';
 import '../../models/meal.dart';
 import 'adaptive_card.dart';
@@ -17,29 +18,10 @@ class MealItem extends StatelessWidget {
       );
 
   String get complexityText{
-    switch(meal.complexity){
-      case Complexity.Simple:
-        return 'Simple';
-      case Complexity.Challenging:
-        return 'Challenging';
-      case Complexity.Hard:
-        return 'Hard';
-      default:
-        return 'Unknown';
-    }
+    return meal.complexity.name[0].toUpperCase() + meal.complexity.name.substring(1);
   }
-
   String get affordabilityText{
-    switch(meal.affordability){
-      case Affordability.Affordable:
-        return 'Cheap';
-      case Affordability.Pricey:
-        return 'Affordable';
-      case Affordability.Gourmet:
-        return 'Expensive';
-      default:
-        return 'Unknown';
-    }
+    return meal.affordability.name[0].toUpperCase() + meal.affordability.name.substring(1);
   }
 
   PageRoute pageRoute(bool isIOS)  {
@@ -120,26 +102,16 @@ class MealItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Row(children: <Widget>[
                 //todo: build an adaptive method for IOS
                 //maybe create a widget that returns Icon(bool platform (Icons/CupertinoIcons).switch case based in string as IconData
-                Icon(Icons.access_time),
-                SizedBox(width: 6,),
-                Text('$meal.duration min'),
-              ],),
-              Row(children: <Widget>[
-                //todo: build an adaptive method for IOS
-                Icon(Icons.work,),
-                SizedBox(width: 6,),
-                Text(complexityText),
-              ],),
-              Row(children: <Widget>[
-                //todo: build an adaptive method for IOS
-                Icon(Icons.attach_money,),
-                SizedBox(width: 6,),
-                Text(affordabilityText),
+                MealItemTraits(icon: Icons.access_time, label: '${meal.duration} min'),
+                const SizedBox(width: 15,),
+                MealItemTraits(icon: Icons.work, label: complexityText),
+                const SizedBox(width: 15,),
+                MealItemTraits(icon: Icons.attach_money, label: affordabilityText),
               ],),
             ],
           ),
